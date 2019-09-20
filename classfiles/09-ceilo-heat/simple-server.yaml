@@ -1,0 +1,15 @@
+heat_template_version: 2016-10-14
+description: A server with user data
+resources:
+  my_instance:
+    type: OS::Nova::Server
+    properties:
+      config_drive: true
+      image: 'xenial'
+      flavor: d3
+      networks:
+        - network: private
+      user_data_format: RAW
+      user_data: 
+        get_file: /home/ubuntu/pressure.sh
+
