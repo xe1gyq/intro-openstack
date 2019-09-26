@@ -1,0 +1,44 @@
+cd ~/devstack
+./unstack.sh && ./clean.sh
+sudo rm -rf /opt/stack
+cp local.conf ~
+cd
+
+pip freeze >/tmp/t
+echo "remove illegal lines from pip freeze output (hit ENTER)"
+read x
+vi /tmp/t
+echo "if you are ready to uninstall Python software, hit ENTER. Otherwise, interrupt."
+read x
+echo "pip uninstall..."
+sudo pip uninstall -y $(</tmp/t)
+echo "removing caches and logs ..."
+sudo rm -rf /root/.cache ~ubuntu/.cache /var/log/openvswitch
+echo "restoring manual page link"
+sudo mkdir -p /usr/local/share/man/man1
+
+echo "checking for loop devices and VGs. Hit ENTER when you are ready."
+sudo losetup -a
+sudo vgdisplay -v
+read x
+
+echo "uninstalling database and more Python"
+sudo apt-get remove --purge mysql* -y
+sudo apt-get remove --purge python* -y
+echo "listing remaining python software (hit ENTER)"
+read x
+dpkg -l | grep python
+echo "remove anything manually, then hit ENTER"
+read x
+
+sudo rm -rf /usr/local/lib/python*
+
+echo "apt autoremove..."
+sudo apt-get autoremove -y --purge
+sudo apt-get autoclean -y
+
+echo "removing the devstack directory (hit ENTER)"
+read x
+cd
+sudo rm -fr devstack  # root privilege needed to get rid of Gnocchi
+
