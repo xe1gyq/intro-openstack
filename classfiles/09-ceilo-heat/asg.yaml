@@ -20,8 +20,8 @@ resources:
         type: OS::Nova::Server
         properties:
           config_drive: true
-          image: 'Xenial'
-          flavor: d3
+          image: 'ubuntu'
+          flavor: ds3G
           networks:
             - network: private
           user_data_format: RAW

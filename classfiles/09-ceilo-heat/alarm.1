@@ -1,0 +1,12 @@
+
+# Set RESID to the ID of the memory pressure instance
+
+RESID=$1
+
+openstack alarm create --name memhigh --type gnocchi_resources_threshold \
+                       --aggregation-method mean --metric memory.usage   \
+                       --comparison-operator gt --threshold 1000         \
+		       --granularity 60 --evaluation-periods 2           \
+		       --resource-id $RESID --resource-type instance     \
+		       --alarm-action http://localhost:1234              \
+		       --ok-action http://localhost:1234    

@@ -1,0 +1,6 @@
+sudo losetup -f --show --direct-io=on /opt/stack/data/stack-volumes-default-backing-file
+sudo losetup -f --show --direct-io=on /opt/stack/data/stack-volumes-lvmdriver-1-backing-file
+sudo mount -t xfs -o loop,noatime,nodiratime,logbufs=8 /opt/stack/data/swift/drives/images/swift.img /opt/stack/data/swift/drives/sdb1
+sudo ip link set mtu 1500 dev br-ex
+sudo ip addr add 172.24.4.1/24 dev br-ex
+sudo ip link set br-ex up

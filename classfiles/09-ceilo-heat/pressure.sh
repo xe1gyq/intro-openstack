@@ -3,7 +3,7 @@
 ################################################################
 # Download the memory pressure program
 cd /home/ubuntu
-curl -s http://192.168.1.200:8111/testprogram >testprogram
+curl -s http://10.1.1.8:8111/testprogram >testprogram
 chmod +x testprogram
 echo Downloaded testprogram
 

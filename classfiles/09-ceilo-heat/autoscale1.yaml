@@ -20,7 +20,7 @@ resources:
         type: OS::Nova::Server
         properties:
           config_drive: true
-          image: 'xenial'
+          image: 'ubuntu'
           flavor: d3
           networks:
             - network: private

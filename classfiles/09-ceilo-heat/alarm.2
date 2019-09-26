@@ -1,0 +1,10 @@
+
+
+openstack alarm create --name memhigh --type gnocchi_aggregation_by_resources_threshold \
+                       --aggregation-method mean --metric memory.usage   \
+                       --comparison-operator gt --threshold 500          \
+		       --resource-type instance                          \
+                       --query '{"=": {"server_group": "myapp"}}'        \
+		       --granularity 60 --evaluation-periods 2           \
+		       --alarm-action http://localhost:1234              \
+		       --ok-action http://localhost:1234    
